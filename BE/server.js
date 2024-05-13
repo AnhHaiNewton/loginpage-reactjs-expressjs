@@ -30,7 +30,6 @@ app.use(
 
 // database
 const db = require("./app/models");
-const Role = db.role;
 
 db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -54,19 +53,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-function initial() {
-  Role.create({
-    id: 1,
-    name: "user",
-  });
 
-  Role.create({
-    id: 2,
-    name: "moderator",
-  });
 
-  Role.create({
-    id: 3,
-    name: "admin",
-  });
-}
