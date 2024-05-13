@@ -1,8 +1,7 @@
 const db = require("../models");
-const ROLES = db.ROLES;
 const User = db.user;
 
-checkDuplicateUsernameOrEmail = async (req, res, next) => {
+checkDuplicateUsername = async (req, res, next) => {
   try {
     // Username
     let user = await User.findOne({
@@ -25,20 +24,6 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
   }
 };
 
-checkRolesExisted = (req, res, next) => {
-  if (req.body.roles) {
-    for (let i = 0; i < req.body.roles.length; i++) {
-      if (!ROLES.includes(req.body.roles[i])) {
-        res.status(400).send({
-          message: "Failed! Role does not exist = " + req.body.roles[i],
-        });
-        return;
-      }
-    }
-  }
-
-  next();
-};
 checkConfirmPassword = (req, res, next) => {
   if (req.body.password !== req.body.confirmPassword) {
     return res.status(400).send({
@@ -49,8 +34,7 @@ checkConfirmPassword = (req, res, next) => {
 };
 
 const verifySignUp = {
-  checkDuplicateUsernameOrEmail,
-  checkRolesExisted,
+  checkDuplicateUsername,
   checkConfirmPassword,
 };
 
