@@ -1,6 +1,6 @@
 // External dependencies
 
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 
 import './style/style.css'
 import { LOCAL_STORAGE_ITEM, PATH } from '../../constants/common'
@@ -19,11 +19,12 @@ const Login = () => {
     mutateLogin(values, {
       onSuccess: (data) => {
         localStorage.setItem(LOCAL_STORAGE_ITEM.TOKEN, data.token)
+        message.success('Login successfully!')
         navigate(PATH.HOME)
       },
       onError: (error: any) => {
         let msg = error?.response?.data?.message
-        window.alert(msg || 'Error login!')
+        message.error(msg || 'Error login!')
       }
     }) // Gọi hàm mutateRegister khi form được hoàn thành
   }

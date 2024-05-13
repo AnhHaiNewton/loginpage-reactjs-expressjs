@@ -1,5 +1,5 @@
 // External dependencies
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Button, Form, Input, message } from 'antd'
 import './style/style.css'
 import { LOCAL_STORAGE_ITEM, PATH } from '../../constants/common'
@@ -18,11 +18,12 @@ const Register = () => {
     mutateRegister(values, {
       onSuccess: (data) => {
         localStorage.setItem(LOCAL_STORAGE_ITEM.TOKEN, data.token)
+        message.success('Register successfully!')
         navigate(PATH.HOME)
       },
       onError: (error: any) => {
         let msg = error?.response?.data?.message
-        window.alert(msg || 'Error login!')
+        message.error(msg || 'Error login!')
       }
     })
   }
@@ -88,7 +89,7 @@ const Register = () => {
               className='login-form-button'
               loading={isPending}
             >
-              LOGIN
+              Sign up
             </Button>
           </Form.Item>
         </Form>
